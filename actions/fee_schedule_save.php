@@ -1,0 +1,13 @@
+<?php
+declare(strict_types=1);
+require_once __DIR__ . '/../includes/bootstrap.php';
+require_once __DIR__ . '/../includes/auth.php';
+$user=current_user();
+if(!$user||!in_array($user['role'],['Administrator','Head','Bursar'],true)){http_response_code(403);exit('Access denied.');}
+if($_SERVER['REQUEST_METHOD']!=='POST'||!verify_csrf()){http_response_code(419);exit('This form has expired. Refresh the page and try again.');}
+$term=filter_var($_POST['term_id']??null,FILTER_VALIDATE_INT);$category=filter_var($_POST['category_id']??null,FILTER_VALIDATE_INT);$form=filter_var($_POST['form_level']??null,FILTER_VALIDATE_INT);$description=trim((string)($_POST['description']??''));$amount=$_POST['amount']??null;$currency=(string)($_POST['currency']??'');$due=trim((string)($_POST['due_date']??''));
+if(!$term||!$category||$form===false||$form<0||$form>6||$description===''||strlen($description)>160||!is_numeric($amount)||(float)$amount<=0||(float)$amount>9999999999.99||!in_array($currency,['USD','ZiG'],true)||($due!==''&&!valid_fee_date($due))){$_SESSION['error']='Check the fee schedule details and try again.';header('Location: ../?page=fees&tab=schedules');exit;}
+$pdo=db();$check=$pdo->prepare('SELECT t.academic_year,c.id FROM school_terms t JOIN fee_categories c ON c.id=:category AND c.active=1 WHERE t.id=:term');$check->execute(['term'=>$term,'category'=>$category]);if(!$check->fetch()){$_SESSION['error']='Choose an active fee category and a valid term.';header('Location: ../?page=fees&tab=schedules');exit;}
+try{$stmt=$pdo->prepare('INSERT INTO fee_schedules (term_id,category_id,form_level,description,amount,currency,due_date,created_by) VALUES (:term,:category,:form,:description,:amount,:currency,:due,:user)');$stmt->execute(['term'=>$term,'category'=>$category,'form'=>$form,'description'=>$description,'amount'=>number_format((float)$amount,2,'.',''),'currency'=>$currency,'due'=>$due?:null,'user'=>$user['id']]);$id=(int)$pdo->lastInsertId();audit_log('fees.schedule_created','fee_schedules',$id,['term_id'=>$term,'form_level'=>$form,'currency'=>$currency]);$_SESSION['notice']='Fee schedule created. Apply it to learners when ready.';}catch(PDOException $e){error_log('Fee schedule save failed: '.$e->getMessage());$_SESSION['error']=$e->getCode()==='23000'?'A schedule already exists for that term, category, form and currency.':'Could not save the fee schedule.';}
+header('Location: ../?page=fees&tab=schedules');exit;
+function valid_fee_date(string $date):bool{if(!preg_match('/^\d{4}-\d{2}-\d{2}$/',$date))return false;$d=DateTimeImmutable::createFromFormat('!Y-m-d',$date);$e=DateTimeImmutable::getLastErrors();return $d!==false&&$d->format('Y-m-d')===$date&&($e===false||(!$e['warning_count']&&!$e['error_count']));}

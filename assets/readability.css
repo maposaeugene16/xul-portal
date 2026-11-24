@@ -1,0 +1,48 @@
+/* Keep operational text readable while preserving compact decorative metadata. */
+body{font-size:15px;line-height:1.5}
+.nav-link{font-size:14px;min-height:44px}
+.nav-label{font-size:11px}
+.nav-count,.breadcrumb{font-size:12px}
+.school-info b{font-size:13px}
+.school-info span,.user-copy b{font-size:12px}
+.user-copy span,.help-card p,.help-card>a{font-size:12px;line-height:1.5}
+.term-pill{font-size:12px}
+.page-heading p,.welcome-row p,.subheading,.panel-heading p,.info-panel p,.settings-panel>p{font-size:13px;line-height:1.6}
+.stat-label{font-size:11px}
+.stat-foot{font-size:12px}
+.stat-strip span,.status-pill,.consent-pill{font-size:12px}
+.privacy-note{font-size:12px;line-height:1.55}
+.form-section-title{font-size:12px}
+.empty-state p{font-size:13px;line-height:1.6}
+.academic-two-col .settings-panel p{font-size:13px;line-height:1.55}
+.primary-button,.outline-button{font-size:13px;min-height:40px;padding:10px 14px}
+.text-button{font-size:12px}
+.compact-button{font-size:12px;min-height:36px;padding:8px 11px}
+.data-table th{font-size:11px;padding:12px}
+.data-table td{font-size:13px;line-height:1.45;padding:11px 12px}
+.data-table td small,.data-table .muted-cell{font-size:12px}
+.empty-cell{font-size:13px}
+.list-toolbar .search-box input,.list-toolbar .select-control{font-size:13px;min-height:40px}
+.toolbar-right .outline-button{font-size:12px}
+.student-form label,.settings-grid label,.attendance-filter label,.fee-schedule-form label,.fee-transaction-form label,.report-filter label,.compact-form label{font-size:12px}
+.student-form input:not([type=checkbox]):not([type=radio]),.student-form select,.student-form textarea,.settings-grid input,.settings-grid select,.attendance-filter select,.attendance-filter input,.attendance-status,.attendance-note,.fee-schedule-form input,.fee-schedule-form select,.fee-transaction-form input,.fee-transaction-form select,.report-filter select,.compact-form input,.compact-form select,.compact-form textarea{font-size:14px;min-height:40px}
+.student-form textarea,.compact-form textarea{height:auto;min-height:76px;padding:9px 10px}
+.attendance-actions,.alert{font-size:13px;line-height:1.5}
+.settings-tabs a{font-size:13px}
+.pagination{font-size:12px}
+.footer{font-size:12px}
+.receipt-lines th,.receipt-lines td{font-size:13px}
+.receipt-note,.receipt-signature{font-size:12px}
+.auth-form label{font-size:13px}
+.auth-form input{font-size:14px;min-height:44px}
+.auth-form small,.auth-foot{font-size:12px}
+.auth-submit{font-size:14px;min-height:44px}
+
+@media(max-width:760px){
+  .nav-link{font-size:15px;min-height:46px}
+  .breadcrumb,.term-pill,.settings-tabs a,.data-table th{font-size:12px}
+  .data-table td{font-size:13px}
+  .panel-heading p,.info-panel p,.settings-panel>p{font-size:13px}
+  .primary-button,.outline-button{font-size:13px;min-height:42px}
+  .attendance-filter label,.report-filter label,.student-form label{font-size:12px}
+}
