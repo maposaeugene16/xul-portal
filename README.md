@@ -42,6 +42,7 @@ Connection values can be set with `SCHOOL_DB_HOST`, `SCHOOL_DB_PORT`, `SCHOOL_DB
 - Guardian portal logins linked to consented learner contacts, with scoped learner attendance, results and fee balances
 - Fee schedules by term, category, form and currency; learner balances; USD and ZiG transactions; numbered receipts; immutable reversals and audit history
 - School operating expenses with submission, independent administrator/head approval, payment recording by someone other than the approver, USD/ZiG totals, filtered CSV export, and retained review/payment history
+- Annual finance report for administrators, heads and bursars, netting reversed fee receipts and comparing fee receipts with paid operating expenses and payroll by currency
 - Administrator-only SQL database backup download with a consistent InnoDB snapshot, audit logging, and restore guidance
 - Administrator deployment-readiness page checking live schema coverage, database engine/account, HTTPS, application mode, school profile and backup requests
 - MySQL/MariaDB schema and migrations for terms, subjects, classes, assessments, attendance, fees, users, announcements and library loans
